@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090711">
+<title>CURSED ROUTE — Your next chapter</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --ink:#f7f1ff;--muted:#aaa1b9;--bg:#090711;--panel:#151120;
+  --violet:#b89aff;--purple:#8758ee;--red:#fa4563;--mint:#8ee4cc;
+  --line:#c6aaff33;--sans:"Manrope",system-ui,sans-serif;--mono:"DM Mono",monospace
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;overflow-x:hidden;color:var(--ink);font-family:var(--sans);
+  background:
+    radial-gradient(ellipse at 80% 12%,#733cc033,transparent 34rem),
+    radial-gradient(ellipse at 7% 68%,#bf30451b,transparent 28rem),
+    var(--bg)
+}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.17;
+  background-image:linear-gradient(#c6aaff18 1px,transparent 1px),linear-gradient(90deg,#c6aaff18 1px,transparent 1px);
+  background-size:52px 52px;mask-image:linear-gradient(#000,transparent 80%)
+}
+body:after{
+  content:"";position:fixed;inset:0;z-index:15;pointer-events:none;opacity:.05;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px)
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+.progress{position:fixed;z-index:30;inset:0 0 auto;height:3px;background:#fff1}
+.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--mint),var(--violet),var(--red));box-shadow:0 0 15px var(--violet)}
+header{
+  position:sticky;top:0;z-index:12;min-height:72px;padding:0 max(5vw,20px);
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line);background:#090711d9;backdrop-filter:blur(18px)
+}
+.brand{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:800;letter-spacing:.2em}
+.brand-symbol{
+  display:grid;width:36px;height:36px;place-items:center;border:1px solid #ffffff40;border-radius:12px;
+  color:#fff;background:linear-gradient(140deg,var(--purple),#40246b 58%,var(--red));
+  box-shadow:0 0 28px #8758ee55
+}
+nav{display:flex;align-items:center;gap:23px}
+nav a{color:#c8bfd5;font-size:10px;transition:color .2s}
+nav a:hover{color:white}
+.nav-cta,.theme-toggle{
+  padding:9px 13px;border:1px solid var(--line);border-radius:999px;
+  color:var(--ink);background:#a78bfa14
+}
+.theme-toggle{cursor:pointer;font-size:10px}
+main{width:min(1160px,88%);margin:auto}
+.hero{
+  position:relative;min-height:610px;padding:90px 0 75px;
+  display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:40px
+}
+.hero-copy{position:relative;z-index:2}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--violet);font:9px var(--mono);letter-spacing:.2em;text-transform:uppercase}
+.kicker:before{content:"";width:26px;height:1px;background:var(--red);box-shadow:0 0 10px var(--red)}
+h1{max-width:680px;margin:23px 0 20px;font-size:clamp(55px,8vw,102px);line-height:.9;letter-spacing:-.085em}
+h1 span{color:transparent;background:linear-gradient(100deg,#e4d8ff,#aa8bff 48%,#ff6b80);background-clip:text;-webkit-background-clip:text}
+.intro{max-width:450px;color:#c3bacf;font-size:13px;line-height:1.85}
+.hero-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;margin-top:25px}
+.primary-link{
+  display:inline-flex;align-items:center;gap:12px;padding:13px 17px;border-radius:10px;
+  color:#fff;background:linear-gradient(110deg,#7951d5,#a044b2 55%,#dc3c59);
+  box-shadow:0 10px 28px #a044b244;font-size:10px;font-weight:800;transition:.2s
+}
+.primary-link:hover{transform:translateY(-3px);box-shadow:0 15px 34px #a044b266}
+.link-note{color:#9e95ad;font:9px var(--mono)}
+.sigils{display:flex;gap:8px;margin-top:31px}
+.sigil{
+  display:grid;width:34px;height:34px;place-items:center;border:1px solid #bea8ff24;border-radius:10px;
+  color:#d5c7ff;background:#ffffff08;font-size:14px
+}
+.art-wrap{position:relative;min-height:420px;display:grid;place-items:center;isolation:isolate}
+.art-wrap:before{
+  content:"";position:absolute;width:min(36vw,400px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#9e5cff27 0 20%,#a9469c1a 45%,transparent 70%);
+  filter:blur(4px);animation:pulse 5s ease-in-out infinite alternate
+}
+@keyframes pulse{to{transform:scale(1.16);opacity:.65}}
+.moon{
+  position:absolute;top:44px;right:12%;width:122px;aspect-ratio:1;border-radius:50%;
+  border:1px solid #dacaff6e;background:radial-gradient(circle at 35% 33%,#f2e9ff,#b89aff 45%,#7c4fbd 76%,#301b52);
+  box-shadow:0 0 40px #b89aff55,0 0 120px #9a5bdb2b
+}
+.moon:after{content:"";position:absolute;inset:12px;border:1px solid #fff5;border-radius:50%}
+.orbit{position:absolute;width:94%;height:46%;border:1px solid #cdb8ff55;border-radius:50%;transform:rotate(-26deg);box-shadow:0 0 18px #a78bfa18}
+.orbit.two{width:78%;height:58%;transform:rotate(52deg);border-color:#fb718555}
+.orbit:after{content:"";position:absolute;top:12%;left:15%;width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}
+.portal{
+  position:relative;width:215px;height:310px;overflow:hidden;
+  border:1px solid #e5d9ff88;border-radius:48% 48% 12px 12px;
+  background:linear-gradient(160deg,#412556 0%,#241833 48%,#100e18 100%);
+  box-shadow:0 0 0 10px #c6aaff0b,0 0 0 24px #c6aaff08,0 25px 80px #0009
+}
+.portal:before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 20%,#ffb6aeaa,transparent 28%),
+    linear-gradient(180deg,transparent 38%,#0a1017 88%)
+}
+.portal-sun{position:absolute;top:42px;left:50%;width:67px;height:67px;border-radius:50%;transform:translateX(-50%);background:#ffb09c;box-shadow:0 0 42px #ff738888}
+.tower{position:absolute;bottom:34px;left:50%;width:8px;height:143px;transform:translateX(-50%);background:#ead9ff;clip-path:polygon(48% 0,55% 8%,67% 43%,100% 100%,0 100%,34% 43%,45% 8%);filter:drop-shadow(0 0 8px #d5b9ff)}
+.tower:after{content:"";position:absolute;inset:36% 0 0;background:repeating-linear-gradient(0deg,transparent 0 11px,#56356e 12px 14px)}
+.rooftops{position:absolute;right:-10%;bottom:0;left:-10%;height:105px;background:#10101a;clip-path:polygon(0 50%,12% 50%,12% 20%,18% 20%,18% 58%,31% 58%,31% 7%,39% 7%,39% 42%,49% 42%,49% 24%,56% 24%,56% 68%,68% 68%,68% 15%,76% 15%,76% 51%,88% 51%,88% 32%,100% 32%,100% 100%,0 100%)}
+.portal-label{position:absolute;right:12px;bottom:12px;left:12px;display:flex;justify-content:space-between;color:#e4d8ef;font:7px var(--mono);letter-spacing:.14em}
+.stamp{
+  position:absolute;bottom:35px;left:1%;display:grid;width:54px;height:54px;place-items:center;
+  border:1px solid #fa456399;color:#ff7184;background:#160b16a8;font:23px serif;
+  transform:rotate(-12deg);box-shadow:0 0 22px #fa456333
+}
+.stamp:before,.stamp:after{content:"";position:absolute;background:#fa456366}
+.stamp:before{width:1px;height:74%}.stamp:after{width:74%;height:1px}
+.side-note{position:absolute;top:50%;right:-18px;color:#c4b1db;font:8px var(--mono);letter-spacing:.22em;writing-mode:vertical-rl}
+.panel{
+  position:relative;overflow:hidden;padding:clamp(21px,3vw,31px);
+  border:1px solid #c6aaff38;border-radius:22px;
+  background:radial-gradient(ellipse at 100% 0%,#7d50c92b,transparent 48%),linear-gradient(145deg,#1d172b,#0e0b16);
+  box-shadow:0 27px 80px #0007,inset 0 1px #ffffff12
+}
+.panel:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--violet),var(--red),transparent)}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}
+.panel h2{margin:0 0 6px;font-size:21px;letter-spacing:-.05em}
+.panel-head p{margin:0;color:var(--muted);font-size:10px}
+.tag{padding:7px 9px;border:1px solid var(--line);border-radius:99px;color:#d9caff;font:7px var(--mono);white-space:nowrap}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:18px;padding:4px;border-radius:10px;background:#0005}
+.tabs button{padding:9px;border:0;border-radius:7px;color:#aaa1b8;background:none;cursor:pointer;font-size:10px;font-weight:700}
+.tabs button.active{color:white;background:linear-gradient(110deg,#8656ed70,#fb405833)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{color:#d5ccdf;font-size:9px;font-weight:700}
+input,select{width:100%;padding:11px;border:1px solid #bea8ff30;border-radius:9px;outline:none;color:#fff;background:#07060ca8;font-size:10px}
+input::placeholder{color:#756d80}
+input:focus,select:focus{border-color:var(--violet);box-shadow:0 0 0 3px #a78bfa29}
+select option{background:#171324}
+.submit{width:100%;margin-top:15px;padding:13px;border:0;border-radius:9px;color:white;background:linear-gradient(105deg,#7651d2,#a243b8 55%,#d73857);box-shadow:0 10px 25px #a454cf3d;cursor:pointer;font-size:11px;font-weight:800;transition:.2s}
+.submit:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.note{min-height:15px;margin:11px 0 0;color:var(--muted);text-align:center;font-size:9px}
+.output{display:none;margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+.output.show{display:block}
+.output h3{margin:0 0 10px;font-size:14px}
+.day{margin-top:8px;padding:11px;border:1px solid #bea8ff26;border-radius:10px;background:#ffffff09}
+.day b{color:#cfbdff;font:9px var(--mono)}
+.day p{margin:6px 0 0;color:#c4bbd1;font-size:9px;line-height:1.6}
+.section{width:min(1160px,88%);margin:auto;padding:75px 0}
+.section h2{margin:11px 0;font-size:clamp(29px,4vw,46px);letter-spacing:-.06em}
+.section-intro{max-width:570px;color:#bdb4c9;font-size:12px;line-height:1.8}
+.destinations{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.destination{
+  position:relative;display:flex;min-height:220px;overflow:hidden;flex-direction:column;justify-content:flex-end;
+  padding:19px;border:1px solid #bea8ff38;border-radius:17px;
+  background:linear-gradient(0deg,#08070df7,transparent 78%),radial-gradient(ellipse at 75% 20%,#ff637366,transparent 30%),linear-gradient(145deg,#4e3975,#171421 75%);
+  transition:transform .25s,border-color .25s
+}
+.destination:nth-child(2){background:linear-gradient(0deg,#08070df7,transparent 78%),radial-gradient(ellipse at 73% 20%,#ffb98488,transparent 28%),linear-gradient(145deg,#744b59,#19151d 75%)}
+.destination:nth-child(3){background:linear-gradient(0deg,#08070df7,transparent 78%),radial-gradient(ellipse at 70% 20%,#d6be8477,transparent 28%),linear-gradient(145deg,#3d6755,#111a19 75%)}
+.destination:before{content:"✦";position:absolute;top:32px;right:17px;color:#ffffff70;font-size:48px;text-shadow:0 0 25px #ffffff88}
+.destination:hover{transform:translateY(-6px);border-color:var(--violet)}
+.destination small{color:#d2bfff;font:7px var(--mono);letter-spacing:.16em}
+.destination h3{margin:8px 0 5px;font-size:20px}
+.destination p{margin:0;color:#c9c1d3;font-size:9px;line-height:1.6}
+footer{width:min(1160px,88%);margin:auto;padding:22px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;color:#8f879d;font:8px var(--mono)}
+.cursor-aura,.cursor-ring,.cursor-spark{position:fixed;z-index:20;top:0;left:0;pointer-events:none}
+.cursor-aura{width:190px;height:190px;border-radius:50%;opacity:0;transform:translate(-50%,-50%);background:radial-gradient(circle,#8656ed33,#fb405814 42%,transparent 72%);mix-blend-mode:screen;transition:opacity .2s}
+.cursor-ring{width:24px;height:24px;display:grid;place-items:center;border:1px solid #c4afffcc;border-radius:7px;opacity:0;color:#ffd9e0;background:#8656ed14;box-shadow:0 0 17px #a78bfa55;transform:translate(-50%,-50%) rotate(45deg);transition:width .18s,height .18s,opacity .2s,border-color .2s}
+.cursor-ring:after{content:"✦";font-size:9px}
+.cursor-spark{color:#ff8da1;opacity:0;font-size:17px;text-shadow:0 0 12px var(--red);transform:translate(10px,-16px)}
+.cursor-active .cursor-aura,.cursor-active .cursor-ring,.cursor-active .cursor-spark{opacity:1}
+.cursor-hover .cursor-ring{width:39px;height:39px;border-color:var(--red)}
+.ripple{position:fixed;z-index:19;width:9px;height:9px;border:1px solid #d1bfff;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);animation:ripple .65s ease-out forwards}
+@keyframes ripple{to{width:75px;height:75px;opacity:0;border-color:var(--red)}}
+body.atlas{--bg:#f3f0e5;--ink:#173b34;--muted:#68796e;--line:#41685335;color:var(--ink);background:radial-gradient(ellipse at 80% 15%,#e7c99080,transparent 34rem),#f3f0e5}
+body.atlas:before{opacity:.07}
+body.atlas header{background:#f6f2e5e8}
+body.atlas nav a{color:#476358}
+body.atlas .intro,body.atlas .section-intro{color:#53685f}
+body.atlas .panel{background:linear-gradient(145deg,#fffdf5,#edf0e5);box-shadow:0 25px 70px #485b3d26}
+body.atlas .panel h2,body.atlas label{color:#173b34}
+body.atlas .panel-head p,body.atlas .note{color:#68796e}
+body.atlas input,body.atlas select{color:#203f35;background:#fffdf9;border-color:#4c6f5840}
+body.atlas .day{background:#eaf0e6}
+body.atlas .day p{color:#445a4e}
+body.atlas .section h2{color:#173b34}
+@media(hover:hover) and (pointer:fine){body,a,button,input,select{cursor:none}}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cursor-aura,.cursor-ring,.cursor-spark{display:none}body,a,button,input,select{cursor:auto}html{scroll-behavior:auto}}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:65px 0 45px;gap:5px}.art-wrap{min-height:340px}.portal{transform:scale(.88)}.side-note{right:4px}}
+@media(max-width:560px){header{min-height:64px;padding:0 15px}nav{gap:8px}nav a:not(.nav-cta){display:none}.brand{font-size:9px}.brand-symbol{width:32px;height:32px}.hero,main,.section,footer{width:calc(100% - 34px)}.hero{padding-top:50px}h1{font-size:clamp(50px,15vw,72px)}.art-wrap{min-height:300px}.portal{transform:scale(.78)}.moon{right:9%;width:90px}.stamp{left:0;bottom:25px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.destinations{grid-template-columns:1fr}.destination{min-height:185px}.section{padding:55px 0}footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div>
+<header>
+  <a class="brand" href="#top"><span class="brand-symbol">呪</span> CURSED ROUTE</a>
+  <nav>
+    <a href="#destinations">Destinations</a>
+    <a href="#planner">Planner</a>
+    <a class="nav-cta" href="#planner">Begin your journey ↗</a>
+    <button class="theme-toggle" id="themeToggle" type="button">☼ Atlas</button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Your next chapter starts here</div>
+      <h1>Cross into<br>the <span>unknown.</span></h1>
+      <p class="intro">Neon-lit streets, quiet shrines, and unexpected detours. Choose your destination and build a journey with a little more magic in it.</p>
+      <div class="hero-actions">
+        <a class="primary-link" href="#planner">PLAN YOUR JOURNEY <span>↗</span></a>
+        <span class="link-note">NO MAP NEEDED. JUST A LITTLE CURIOSITY.</span>
+      </div>
+      <div class="sigils" aria-label="Trip features"><span class="sigil">✦</span><span class="sigil">◉</span><span class="sigil">↗</span><span class="sigil">✧</span></div>
+    </div>
+
+    <div class="art-wrap" aria-label="Original illustrated night city portal">
+      <div class="moon"></div><div class="orbit"></div><div class="orbit two"></div>
+      <div class="portal">
+        <div class="portal-sun"></div><div class="tower"></div><div class="rooftops"></div>
+        <div class="portal-label"><span>UNSEEN DISTRICT</span><span>35° 40′ N</span></div>
+      </div>
+      <div class="stamp" aria-hidden="true">呪</div>
+      <div class="side-note">FOLLOW THE STRANGE LIGHT</div>
+    </div>
+  </section>
+
+  <section class="panel" id="planner">
+    <div class="panel-head">
+      <div><h2>Plan your next trip</h2><p>Give the journey a starting point.</p></div>
+      <span class="tag">ENERGY: READY</span>
+    </div>
+    <div class="tabs">
+      <button class="active" type="button">Create a trip</button>
+      <button type="button" id="surpriseButton">Surprise me ✦</button>
+    </div>
+    <form id="tripForm">
+      <div class="fields">
+        <div class="field"><label for="from">Starting from</label><input id="from" placeholder="City or airport" required></div>
+        <div class="field"><label for="to">Destination</label><input id="to" placeholder="Where to?" required></div>
+        <div class="field"><label for="days">Number of days</label><input id="days" type="number" min="1" max="14" value="3" required></div>
+        <div class="field"><label for="style">Trip energy</label>
+          <select id="style">
+            <option>Balanced adventure</option><option>Food and city lights</option>
+            <option>Culture and history</option><option>Nature and quiet</option>
+            <option>Slow and relaxed</option>
+          </select>
+        </div>
+      </div>
+      <button class="submit" type="submit">Reveal my itinerary&nbsp; ✦</button>
+      <p class="note" id="message">Your adventure is one click away.</p>
+    </form>
+    <div class="output" id="output" aria-live="polite"></div>
+  </section>
+</main>
+
+<section class="section" id="destinations">
+  <div class="kicker">Choose your next world</div>
+  <h2>Where will the story take you?</h2>
+  <p class="section-intro">Pick a place that calls to you. Your route can be as bold, peaceful, or spontaneous as you like.</p>
+  <div class="destinations">
+    <article class="destination"><small>01 / CITY LIGHTS</small><h3>Tokyo, Japan</h3><p>Neon nights, quiet shrines, and a city full of contrasts.</p></article>
+    <article class="destination"><small>02 / AFTER HOURS</small><h3>Paris, France</h3><p>Art-filled afternoons, riverside walks, and timeless streets.</p></article>
+    <article class="destination"><small>03 / QUIET MAGIC</small><h3>Kyoto, Japan</h3><p>Temple paths, lantern-lit lanes, gardens, and mountain air.</p></article>
+  </div>
+</section>
+<footer><span>© 2025 CURSED ROUTE</span><span>MAKE ROOM FOR THE UNEXPECTED ✦</span></footer>
+
+<script>
+const form=document.getElementById("tripForm");
+const destination=document.getElementById("to");
+const output=document.getElementById("output");
+const message=document.getElementById("message");
+const ideas=[
+  ["Tokyo","Follow the lights to Tokyo, where the city keeps its own rhythm."],
+  ["Paris","A riverside walk, a little café, and Paris after golden hour."],
+  ["Kyoto","Find the quiet path through Kyoto’s gardens, gates, and hills."],
+  ["Seoul","Discover Seoul’s night markets, creative streets, and mountain views."],
+  ["Mumbai","Take in the sea breeze, busy bazaars, and late-night food."],
+  ["Bengaluru","Mix leafy parks, creative neighborhoods, and excellent coffee."]
+];
+
+document.getElementById("surpriseButton").addEventListener("click",()=>{
+  const pick=ideas[Math.floor(Math.random()*ideas.length)];
+  destination.value=pick[0];
+  message.textContent=pick[1];
+  destination.focus();
+});
+
+form.addEventListener("submit",event=>{
+  event.preventDefault();
+  if(!form.reportValidity())return;
+  const from=document.getElementById("from").value.trim();
+  const to=destination.value.trim();
+  const days=Number(document.getElementById("days").value);
+  const style=document.getElementById("style").value;
+  const activities=[
+    `Arrive in ${to} and explore a lively local neighborhood.`,
+    `Visit a landmark, museum, or cultural spot that makes ${to} unique.`,
+    `Find a favorite café or market, then leave room for a detour.`,
+    `Take a slower morning and discover a garden or scenic viewpoint.`,
+    `End the day with a memorable meal and an evening stroll.`
+  ];
+  output.innerHTML=`<h3>${days}-day route: ${escapeHTML(from)} → ${escapeHTML(to)}</h3>`;
+  for(let i=0;i<days;i++){
+    const first=activities[(i*2)%activities.length];
+    const second=activities[(i*2+1)%activities.length];
+    output.innerHTML+=`<article class="day"><b>DAY ${i+1} / ${escapeHTML(style)}</b><p>${escapeHTML(first)} ${escapeHTML(second)}</p></article>`;
+  }
+  output.classList.add("show");
+  message.textContent="Your sample itinerary is ready. Make it your own!";
+  output.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[char]);
+}
+
+document.getElementById("themeToggle").addEventListener("click",event=>{
+  document.body.classList.toggle("atlas");
+  event.currentTarget.textContent=document.body.classList.contains("atlas")?"✦ JJK":"☼ Atlas";
+});
+
+const progressBar=document.getElementById("progressBar");
+function updateProgress(){
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  progressBar.style.width=(max>0?window.scrollY/max*100:0)+"%";
+}
+window.addEventListener("scroll",updateProgress,{passive:true});
+window.addEventListener("resize",updateProgress);
+updateProgress();
+
+if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){
+  const aura=document.createElement("div"),ring=document.createElement("div"),spark=document.createElement("div");
+  aura.className="cursor-aura";ring.className="cursor-ring";spark.className="cursor-spark";spark.textContent="✧";
+  document.body.append(aura,ring,spark);
+  let x=-100,y=-100,rx=x,ry=y,frame=0;
+  function animateCursor(){
+    rx+=(x-rx)*.22;ry+=(y-ry)*.22;
+    aura.style.left=x+"px";aura.style.top=y+"px";
+    ring.style.left=rx+"px";ring.style.top=ry+"px";
+    spark.style.left=(x+16)+"px";spark.style.top=(y-17)+"px";
+    if(Math.abs(x-rx)+Math.abs(y-ry)>.5)frame=requestAnimationFrame(animateCursor);
+    else frame=0;
+  }
+  document.addEventListener("pointermove",event=>{
+    x=event.clientX;y=event.clientY;
+    document.body.classList.add("cursor-active");
+    document.body.classList.toggle("cursor-hover",Boolean(event.target.closest("a,button,input,select")));
+    if(!frame)frame=requestAnimationFrame(animateCursor);
+  },{passive:true});
+  document.addEventListener("pointerleave",()=>document.body.classList.remove("cursor-active","cursor-hover"));
+  document.addEventListener("click",event=>{
+    const ripple=document.createElement("span");
+    ripple.className="ripple";ripple.style.left=event.clientX+"px";ripple.style.top=event.clientY+"px";
+    document.body.appendChild(ripple);
+    ripple.addEventListener("animationend",()=>ripple.remove(),{once:true});
+  });
+}
+</script>
+</body>
+</html>

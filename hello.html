@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090817">
+  <title>PLAN A TRIP — Follow the unknown</title>
+
+  <style>
+    :root {
+      --night: #090817;
+      --panel: rgba(19, 17, 39, .92);
+      --white: #fbfaff;
+      --muted: #aaa7c3;
+      --violet: #ae8aff;
+      --pink: #ff739c;
+      --cyan: #7ce9f2;
+      --line: rgba(255,255,255,.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--white);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 82% 14%, rgba(131,69,210,.28), transparent 34%),
+        radial-gradient(ellipse at 11% 58%, rgba(255,80,139,.15), transparent 32%),
+        linear-gradient(145deg, #090817, #15102a 48%, #0a1020);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(180,160,255,.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180,160,255,.09) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    header {
+      width: min(1180px, calc(100% - 40px));
+      height: 76px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .19em;
+    }
+
+    .brand-mark {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px 12px 12px 4px;
+      color: #110e20;
+      font-size: 19px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet) 52%, var(--pink));
+      box-shadow: 0 0 30px rgba(174,138,255,.35);
+      transform: rotate(-5deg);
+    }
+
+    nav { display: flex; gap: 22px; align-items: center; }
+
+    nav a {
+      color: #d8d3e9;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    nav a:hover { color: var(--cyan); }
+
+    .nav-cta {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 650px;
+      margin: auto;
+      padding: 65px 0 75px;
+      display: grid;
+      grid-template-columns: 1fr .85fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .overline, .section-tag {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .23em;
+      text-transform: uppercase;
+    }
+
+    .overline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .overline::before {
+      content: "";
+      width: 29px;
+      height: 1px;
+      background: var(--pink);
+      box-shadow: 0 0 12px var(--pink);
+    }
+
+    h1 {
+      margin: 22px 0 20px;
+      font-size: clamp(54px, 7.7vw, 94px);
+      line-height: .91;
+      letter-spacing: -.075em;
+    }
+
+    h1 .glow {
+      color: transparent;
+      background: linear-gradient(95deg, var(--cyan), #c3a4ff 48%, var(--pink));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 490px;
+      color: #c4c0d6;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      flex-wrap: wrap;
+    }
+
+    .button-link, .primary-button {
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 11px;
+      color: #100e1c;
+      background: linear-gradient(105deg, var(--cyan), #b2a1ff 58%, var(--pink));
+      box-shadow: 0 10px 35px rgba(174,138,255,.22);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .button-link:hover, .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(174,138,255,.35);
+    }
+
+    .text-link {
+      color: #d5d0e5;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .text-link:hover { color: var(--cyan); }
+
+    .hero-stats {
+      display: flex;
+      gap: 25px;
+      margin-top: 42px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      border-left: 1px solid rgba(124,233,242,.5);
+      padding-left: 12px;
+    }
+
+    .stat strong { display: block; font-size: 15px; }
+    .stat span { color: var(--muted); font-size: 10px; }
+
+    .portal {
+      min-height: 450px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .portal-ring {
+      position: absolute;
+      width: min(400px, 88vw);
+      aspect-ratio: 1;
+      border: 1px solid rgba(174,138,255,.35);
+      border-radius: 50%;
+      box-shadow: 0 0 65px rgba(132,74,255,.13), inset 0 0 65px rgba(132,74,255,.08);
+      animation: drift 18s linear infinite;
+    }
+
+    .portal-ring::before, .portal-ring::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 1px dashed rgba(124,233,242,.3);
+      border-radius: 50%;
+    }
+
+    .portal-ring::after {
+      inset: 45px;
+      border-color: rgba(255,115,156,.25);
+    }
+
+    @keyframes drift { to { transform: rotate(360deg); } }
+
+    .map-card {
+      z-index: 1;
+      width: min(340px, 86vw);
+      min-height: 335px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(36,27,66,.96), rgba(12,15,32,.94));
+      box-shadow: 0 30px 100px #0009, 0 0 65px rgba(145,102,255,.16);
+      transform: rotate(2deg);
+    }
+
+    .map-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .45;
+      background:
+        linear-gradient(32deg, transparent 47%, rgba(124,233,242,.15) 48%, transparent 49%),
+        linear-gradient(133deg, transparent 34%, rgba(255,115,156,.14) 35%, transparent 36%);
+      background-size: 86px 86px, 102px 102px;
+    }
+
+    .map-top, .map-bottom { position: relative; z-index: 1; }
+
+    .map-top {
+      display: flex;
+      justify-content: space-between;
+      color: #dad4ec;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .map-art { height: 210px; position: relative; margin-top: 15px; }
+
+    .map-orb {
+      position: absolute;
+      width: 135px;
+      height: 135px;
+      top: 28px;
+      left: 50%;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 35% 33%, #f4caff 0 3%, #af81ff 15%, #472d84 47%, #101226 72%);
+      box-shadow: 0 0 55px rgba(174,138,255,.5);
+    }
+
+    .map-orb::after {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border: 1px solid rgba(255,115,156,.45);
+      border-radius: 50%;
+      transform: scaleY(.36) rotate(-20deg);
+    }
+
+    .route-line {
+      position: absolute;
+      left: 15%;
+      top: 52%;
+      width: 70%;
+      height: 32%;
+      border-top: 2px dashed rgba(124,233,242,.8);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+      filter: drop-shadow(0 0 8px var(--cyan));
+    }
+
+    .pin {
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      border: 3px solid white;
+      border-radius: 50% 50% 50% 0;
+      background: var(--pink);
+      box-shadow: 0 0 22px var(--pink);
+      transform: rotate(-45deg);
+    }
+
+    .pin.one { left: 15%; top: 65%; }
+    .pin.two { right: 15%; top: 30%; background: var(--cyan); box-shadow: 0 0 22px var(--cyan); }
+
+    .map-label {
+      position: absolute;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 7px;
+      color: #eee9ff;
+      background: #111024cc;
+      font-size: 9px;
+    }
+
+    .label-one { left: 0; top: 83%; }
+    .label-two { right: 0; top: 12%; }
+
+    .map-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .map-bottom small { color: var(--muted); font-size: 9px; }
+    .map-bottom strong { display: block; margin-top: 5px; font-size: 15px; }
+    .map-arrow { color: var(--cyan); font-size: 25px; }
+
+    .section {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 55px 0;
+    }
+
+    .section h2 {
+      margin: 12px 0;
+      font-size: clamp(31px, 4.5vw, 48px);
+      letter-spacing: -.055em;
+    }
+
+    .section-lead {
+      max-width: 610px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .destination-grid, .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+      margin-top: 28px;
+    }
+
+    .destination {
+      min-height: 210px;
+      padding: 19px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(160deg, #9a66ef77, #151328 68%);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .destination:nth-child(2) { background: linear-gradient(160deg, #f16b8877, #151328 68%); }
+    .destination:nth-child(3) { background: linear-gradient(160deg, #46bac377, #151328 68%); }
+    .destination:hover { transform: translateY(-5px); border-color: var(--cyan); }
+
+    .destination::before {
+      position: absolute;
+      top: 12px;
+      right: 17px;
+      color: rgba(255,255,255,.21);
+      font-size: 74px;
+      line-height: 1;
+    }
+
+    .destination:nth-child(1)::before { content: "東"; }
+    .destination:nth-child(2)::before { content: "✧"; }
+    .destination:nth-child(3)::before { content: "京"; }
+    .destination small { color: var(--cyan); font-size: 9px; letter-spacing: .18em; }
+    .destination h3 { margin: 8px 0 5px; font-size: 22px; }
+    .destination p { margin: 0; color: #cec9dc; font-size: 12px; line-height: 1.6; }
+
+    .step-card {
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(140deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+    }
+
+    .step-number { color: var(--pink); font-size: 11px; font-weight: 800; letter-spacing: .14em; }
+    .step-card h3 { margin: 12px 0 7px; font-size: 16px; }
+    .step-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+    .footer-cta {
+      width: min(1120px, calc(100% - 40px));
+      margin: 30px auto 60px;
+      padding: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid rgba(174,138,255,.28);
+      border-radius: 19px;
+      background: linear-gradient(105deg, rgba(119,77,190,.2), rgba(255,115,156,.09));
+    }
+
+    footer {
+      padding: 20px;
+      border-top: 1px solid var(--line);
+      color: #817d98;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .account-card {
+      width: 100%;
+      max-width: 490px;
+      justify-self: end;
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: 0 25px 85px #0008, 0 0 50px rgba(174,138,255,.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .account-card h2 { margin: 0 0 7px; font-size: 23px; letter-spacing: -.04em; }
+    .card-subtitle { margin: 0 0 18px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .tabs {
+      display: flex;
+      padding: 4px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      background: #090817;
+    }
+
+    .tabs button {
+      width: 50%;
+      padding: 10px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .tabs button.active { color: white; background: #ffffff18; }
+
+    .form-grid, .planner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+
+    label { color: #ded9ed; font-size: 11px; font-weight: 650; }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 10px;
+      outline: none;
+      color: white;
+      background: #0d0b1a;
+      font: inherit;
+      font-size: 12px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(124,233,242,.1);
+    }
+
+    textarea { min-height: 60px; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: #77738d; }
+
+    .captcha-row { display: flex; gap: 7px; }
+
+    #captcha-code {
+      min-width: 78px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(174,138,255,.65);
+      border-radius: 9px;
+      color: #e6d8ff;
+      background: repeating-linear-gradient(135deg, #a78bfa20 0 7px, #ff739c12 7px 14px);
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-decoration: line-through;
+      user-select: none;
+    }
+
+    .refresh {
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--cyan);
+      background: #ffffff0c;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .primary-button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 13px;
+      border: 0;
+      border-radius: 10px;
+      color: #100e1c;
+      background: linear-gradient(100deg, var(--cyan), #b59aff 60%, var(--pink));
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+      transition: transform .2s, filter .2s;
+    }
+
+    .primary-button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+    .small-print {
+      color: #928da5;
+      font-size: 10px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .notice {
+      display: none;
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .notice.show { display: block; }
+    .notice.error { color: #ffb2bd; background: #fb718522; }
+
+    .itinerary { margin-top: 22px; }
+    .itinerary h2 { font-size: 19px; }
+    .itinerary-label { color: var(--cyan); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+
+    .day-plan {
+      margin-top: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .day-plan h3 { margin: 0 0 9px; color: #d8c5ff; font-size: 13px; }
+    .day-plan ul { margin: 0; padding-left: 18px; color: #d6d1e1; font-size: 11px; line-height: 1.8; }
+
+    .guide-grid, .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .guide-card, .transport-card {
+      padding: 13px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 12px;
+      background: rgba(8,8,20,.55);
+    }
+
+    .guide-card h4, .transport-card h4 {
+      margin: 0 0 6px;
+      font-size: 12px;
+    }
+
+    .guide-card p, .transport-card p {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .guide-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .guide-links a {
+      color: var(--cyan);
+      font-size: 10px;
+      text-decoration: none;
+    }
+
+    .guide-links a:hover { text-decoration: underline; }
+
+    .booking-note {
+      display: block;
+      margin: 7px 0 9px;
+      color: #e7c6ff;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .transport-card .transport-icon {
+      display: inline-grid;
+      width: 29px;
+      height: 29px;
+      margin-bottom: 9px;
+      place-items: center;
+      border-radius: 9px;
+      color: var(--cyan);
+      background: #7ce9f21a;
+      font-size: 15px;
+    }
+
+    .notice-box {
+      margin-top: 12px;
+      padding: 11px;
+      border: 1px solid rgba(124,233,242,.18);
+      border-radius: 10px;
+      color: #b9dfe2;
+      background: rgba(124,233,242,.06);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 48px; }
+      .portal { min-height: 420px; }
+      .account-card { justify-self: start; max-width: 650px; }
+      .destination-grid, .steps-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      header { width: calc(100% - 30px); height: 68px; }
+      nav { gap: 12px; }
+      nav a:not(.nav-cta) { display: none; }
+      .hero, .section { width: calc(100% - 30px); }
+      .hero { padding: 38px 0; }
+      h1 { font-size: 56px; }
+      .hero-stats { gap: 14px; }
+      .portal { min-height: 350px; }
+      .map-card { min-height: 320px; }
+      .account-card { padding: 21px 16px; }
+      .form-grid, .planner-grid, .destination-grid, .steps-grid,
+      .guide-grid, .transport-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .section { padding: 42px 0; }
+      .destination { min-height: 180px; }
+      .footer-cta { width: calc(100% - 30px); padding: 22px; align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="#top" class="brand"><span class="brand-mark">✦</span> PLAN A TRIP</a>
+    <nav>
+      <a href="#destinations">Destinations</a>
+      <a href="#how">How it works</a>
+      <a class="nav-cta" href="#account">Start planning ↗</a>
+    </nav>
+  </header>
+
+  <main class="hero" id="top">
+    <section>
+      <div class="overline">Your next chapter starts here</div>
+      <h1>Follow the<br><span class="glow">unknown.</span></h1>
+      <p class="hero-copy">
+        Find hidden corners, unforgettable flavors, and big-sky moments waiting
+        just beyond your usual route. Your next adventure starts here.
+      </p>
+      <div class="hero-actions">
+        <a class="button-link" href="#account">Open your travel portal ↗</a>
+        <a class="text-link" href="#destinations">Explore destinations ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>01</strong><span>Choose a destination</span></div>
+        <div class="stat"><strong>02</strong><span>Pick your transport</span></div>
+        <div class="stat"><strong>03</strong><span>Make it yours</span></div>
+      </div>
+    </section>
+
+    <div class="portal" aria-hidden="true">
+      <div class="portal-ring"></div>
+      <div class="map-card">
+        <div class="map-top">
+          <span><i class="live-dot"></i> Adventure detected</span>
+          <span>✦ No. 001</span>
+        </div>
+        <div class="map-art">
+          <div class="map-orb"></div>
+          <div class="route-line"></div>
+          <span class="pin one"></span>
+          <span class="pin two"></span>
+          <span class="map-label label-one">Somewhere new</span>
+          <span class="map-label label-two">Your next chapter</span>
+        </div>
+        <div class="map-bottom">
+          <div><small>DESTINATION STATUS</small><strong>Waiting for you</strong></div>
+          <span class="map-arrow">↗</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="account-card" id="account">
+      <div id="signup-screen">
+        <h2>Enter your next chapter</h2>
+        <p class="card-subtitle">Create your traveler profile to open the trip planner.</p>
+
+        <div class="tabs">
+          <button class="active" type="button" id="signup-tab">Create account</button>
+          <button type="button" id="login-tab">Log in</button>
+        </div>
+
+        <form id="signup-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" autocomplete="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" type="tel" autocomplete="tel" placeholder="+1 555 000 0000" required>
+            </div>
+            <div class="field full">
+              <label for="email">Email address</label>
+              <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field full">
+              <label for="address">Address</label>
+              <textarea id="address" autocomplete="street-address" placeholder="Street, city, country" required></textarea>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" type="password" minlength="8" placeholder="At least 8 characters" required>
+            </div>
+            <div class="field">
+              <label for="captcha">Enter the code</label>
+              <div class="captcha-row">
+                <span id="captcha-code" aria-label="CAPTCHA code"></span>
+                <button class="refresh" type="button" id="refresh-captcha" aria-label="Refresh code">↻</button>
+                <input id="captcha" placeholder="Code" autocomplete="off" required>
+              </div>
+            </div>
+          </div>
+          <button class="primary-button" type="submit">Create my traveler profile →</button>
+          <div id="signup-notice" class="notice" role="status" aria-live="polite"></div>
+          <p class="small-print">Demo only: details are not saved or sent anywhere.</p>
+        </form>
+      </div>
+
+      <div id="login-screen" hidden>
+        <div class="overline">Portal access</div>
+        <h2 style="margin-top:12px">Welcome back.</h2>
+        <p class="card-subtitle">Log in to open your trip-planning portal.</p>
+        <form id="login-form">
+          <div class="field">
+            <label for="login-email">Email address</label>
+            <input id="login-email" type="email" autocomplete="username" required>
+          </div>
+          <div class="field" style="margin-top:13px">
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="primary-button" type="submit">Unlock trip planner ↗</button>
+          <p class="small-print">Demo only: login details are not checked or stored.</p>
+        </form>
+      </div>
+
+      <div id="planner-screen" hidden>
+        <div class="overline">Your route begins</div>
+        <h2 style="margin-top:12px">Build your itinerary.</h2>
+        <p class="card-subtitle">Choose your route, trip length, travel style, and vehicle.</p>
+        <form id="planner-form">
+          <div class="planner-grid">
+            <div class="field">
+              <label for="from-place">Starting from</label>
+              <input id="from-place" placeholder="City or airport" required>
+            </div>
+            <div class="field">
+              <label for="to-place">Destination</label>
+              <input id="to-place" placeholder="Where to?" required>
+            </div>
+            <div class="field">
+              <label for="trip-days">Number of days</label>
+              <input id="trip-days" type="number" min="1" max="14" value="3" required>
+            </div>
+            <div class="field">
+              <label for="travel-style">Adventure style</label>
+              <select id="travel-style">
+                <option>Balanced</option>
+                <option>Culture and history</option>
+                <option>Food and cafes</option>
+                <option>Nature and outdoors</option>
+                <option>Relaxed pace</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="vehicle">Preferred travel option</label>
+              <select id="vehicle">
+                <option value="any">Show me all options</option>
+                <option value="flight">Flight</option>
+                <option value="train">Train</option>
+                <option value="bus">Bus</option>
+                <option value="car">Car or rental</option>
+              </select>
+            </div>
+          </div>
+          <button class="primary-button" type="submit">Reveal my trip plan ✦</button>
+        </form>
+
+        <div id="trip-results" class="itinerary" aria-live="polite"></div>
+
+        <div class="notice-box">
+          This single-file demo gives instant sample suggestions. Guide and ticket
+          links take you to venue pages or search results; it does not make
+          reservations or show live availability.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="section" id="destinations">
+    <div class="section-tag">A few possible portals</div>
+    <h2>Where will the story take you?</h2>
+    <p class="section-lead">
+      Pick a place, follow your curiosity, and shape the trip around your own pace.
+    </p>
+    <div class="destination-grid">
+      <article class="destination">
+        <small>01 · JAPAN</small>
+        <h3>Tokyo</h3>
+        <p>Electric streets, peaceful shrines, and tiny ramen counters after dark.</p>
+      </article>
+      <article class="destination">
+        <small>02 · FRANCE</small>
+        <h3>Paris</h3>
+        <p>Art-filled afternoons, riverside evenings, and café tables for two.</p>
+      </article>
+      <article class="destination">
+        <small>03 · JAPAN</small>
+        <h3>Kyoto</h3>
+        <p>Temple paths, lantern-lit lanes, gardens, and mountain air.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="section-tag">The travel spell</div>
+    <h2>Three steps. A whole new world.</h2>
+    <div class="steps-grid">
+      <article class="step-card">
+        <span class="step-number">01 / DRAW YOUR ROUTE</span>
+        <h3>Choose where to go</h3>
+        <p>Enter your starting point, destination, and how many days you have.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-number">02 / CHOOSE YOUR RIDE</span>
+        <h3>Compare transport options</h3>
+        <p>Explore flights, trains, buses, rental cars, and local transport links.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-number">03 / STEP THROUGH</span>
+        <h3>Explore the places</h3>
+        <p>Review visitor guides, ticket links, and a day-by-day starting plan.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="footer-cta">
+    <div>
+      <h2>Your next great story is out there.</h2>
+      <p style="color:var(--muted);font-size:12px">Follow the unknown. Start planning today.</p>
+    </div>
+    <a href="#account" class="button-link">Open the portal ↗</a>
+  </section>
+
+  <footer>© 2026 PLAN A TRIP · Make room for the unexpected ✦</footer>
+
+  <script>
+    const signupScreen = document.getElementById("signup-screen");
+    const loginScreen = document.getElementById("login-screen");
+    const plannerScreen = document.getElementById("planner-screen");
+    const signupForm = document.getElementById("signup-form");
+    const signupTab = document.getElementById("signup-tab");
+    const loginTab = document.getElementById("login-tab");
+
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let captchaAnswer = "";
+
+    function refreshCaptcha() {
+      captchaAnswer = Array.from({ length: 5 }, () =>
+        alphabet[Math.floor(Math.random() * alphabet.length)]
+      ).join("");
+
+      document.getElementById("captcha-code").textContent = captchaAnswer;
+      document.getElementById("captcha").value = "";
+    }
+
+    refreshCaptcha();
+    document.getElementById("refresh-captcha").addEventListener("click", refreshCaptcha);
+
+    signupTab.addEventListener("click", () => {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupScreen.hidden = false;
+      loginScreen.hidden = true;
+    });
+
+    loginTab.addEventListener("click", () => {
+      signupTab.classList.remove("active");
+      loginTab.classList.add("active");
+      signupScreen.hidden = true;
+      loginScreen.hidden = false;
+    });
+
+    signupForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!signupForm.reportValidity()) return;
+
+      const enteredCode = document.getElementById("captcha").value.trim().toUpperCase();
+      const message = document.getElementById("signup-notice");
+
+      if (enteredCode !== captchaAnswer) {
+        message.textContent = "The code did not match. Please try again.";
+        message.className = "notice show error";
+        refreshCaptcha();
+        return;
+      }
+
+      document.getElementById("login-email").value =
+        document.getElementById("email").value;
+
+      signupScreen.hidden = true;
+      loginScreen.hidden = false;
+    });
+
+    document.getElementById("login-form").addEventListener("submit", event => {
+      event.preventDefault();
+      if (!event.currentTarget.reportValidity()) return;
+
+      loginScreen.hidden = true;
+      plannerScreen.hidden = false;
+    });
+
+    /*
+      Guide links use official visitor pages for selected places.
+      For other places, the page offers map and official-site search links.
+      Ticket rules and availability can change, so confirm them with the venue.
+    */
+    const placeGuides = {
+      tokyo: [
+        {
+          name: "Sensō-ji Temple",
+          area: "Asakusa",
+          guide: "https://www.senso-ji.jp/english/",
+          booking: "",
+          note: "Check the official visitor page for access and visit information."
+        },
+        {
+          name: "Tokyo Tower",
+          area: "Minato",
+          guide: "https://en.tokyotower.co.jp/",
+          booking: "https://ticket.tokyotower.co.jp/en/",
+          note: "Observation deck tickets are available online. Check dates and ticket options."
+        },
+        {
+          name: "Meiji Jingu",
+          area: "Shibuya",
+          guide: "https://www.meijijingu.or.jp/en/",
+          booking: "",
+          note: "Check the official site for current visitor information and special events."
+        },
+        {
+          name: "Tokyo National Museum",
+          area: "Ueno",
+          guide: "https://www.tnm.jp/?lang=en",
+          booking: "https://www.tnm.jp/?lang=en",
+          note: "Exhibitions may have separate ticket or reservation requirements."
+        },
+        {
+          name: "Shibuya Crossing",
+          area: "Shibuya",
+          guide: "https://www.gotokyo.org/en/spot/23/index.html",
+          booking: "",
+          note: "Public street crossing; no attraction ticket is normally needed."
+        }
+      ],
+      kyoto: [
+        {
+          name: "Fushimi Inari Shrine",
+          area: "Fushimi",
+          guide: "https://inari.jp/en/",
+          booking: "",
+          note: "Check the official shrine page for visitor guidance and access."
+        },
+        {
+          name: "Kiyomizu-dera",
+          area: "Higashiyama",
+          guide: "https://www.kiyomizudera.or.jp/en/",
+          booking: "https://www.kiyomizudera.or.jp/en/",
+          note: "Check current admission details and any special evening openings."
+        },
+        {
+          name: "Arashiyama Bamboo Grove",
+          area: "Arashiyama",
+          guide: "https://kyoto.travel/en/",
+          booking: "",
+          note: "The public walking area generally does not need an attraction ticket."
+        },
+        {
+          name: "Nishiki Market",
+          area: "Downtown Kyoto",
+          guide: "https://www.kyoto-nishiki.or.jp/en/",
+          booking: "",
+          note: "Market shops set their own hours; check individual experiences or tours."
+        },
+        {
+          name: "Kinkaku-ji",
+          area: "North Kyoto",
+          guide: "https://www.shokoku-ji.jp/en/kinkakuji/",
+          booking: "https://www.shokoku-ji.jp/en/kinkakuji/",
+          note: "Check the official site for current admission information."
+        }
+      ],
+      paris: [
+        {
+          name: "Eiffel Tower",
+          area: "Champ de Mars",
+          guide: "https://www.toureiffel.paris/en/planning-smooth-visit",
+          booking: "https://ticket.toureiffel.paris/en",
+          note: "Timed tickets are offered online. Check official availability for your date."
+        },
+        {
+          name: "Louvre Museum",
+          area: "1st arrondissement",
+          guide: "https://www.louvre.fr/en/visit",
+          booking: "https://ticket.louvre.fr/",
+          note: "Check official ticket availability and entry requirements before visiting."
+        },
+        {
+          name: "Montmartre and Sacré-Cœur",
+          area: "Montmartre",
+          guide: "https://www.sacre-coeur-montmartre.com/english/",
+          booking: "",
+          note: "Check the basilica site for visitor information and guided tour options."
+        },
+        {
+          name: "Musée d’Orsay",
+          area: "Left Bank",
+          guide: "https://www.musee-orsay.fr/en/visit",
+          booking: "https://www.musee-orsay.fr/en/visit",
+          note: "Check the museum's official site for tickets and current exhibitions."
+        },
+        {
+          name: "Île de la Cité",
+          area: "Central Paris",
+          guide: "https://parisjetaime.com/eng/",
+          booking: "",
+          note: "For individual attractions on the island, check each venue's ticket rules."
+        }
+      ],
+      london: [
+        {
+          name: "Tower of London",
+          area: "Tower Hill",
+          guide: "https://www.hrp.org.uk/tower-of-london/visit/",
+          booking: "https://www.hrp.org.uk/tower-of-london/visit/tickets-and-prices/",
+          note: "Check the official site for ticket options and date availability."
+        },
+        {
+          name: "British Museum",
+          area: "Bloomsbury",
+          guide: "https://www.britishmuseum.org/visit",
+          booking: "https://www.britishmuseum.org/visit",
+          note: "Check the official visitor page for timed entry and special exhibition tickets."
+        },
+        {
+          name: "Westminster Abbey",
+          area: "Westminster",
+          guide: "https://www.westminster-abbey.org/visit-us",
+          booking: "https://www.westminster-abbey.org/visit-us/entry-tickets",
+          note: "Check current opening arrangements and book entry through the official site."
+        },
+        {
+          name: "Hyde Park",
+          area: "Central London",
+          guide: "https://www.royalparks.org.uk/visit/parks/hyde-park",
+          booking: "",
+          note: "Public park; check the official page for events and access information."
+        },
+        {
+          name: "Camden Market",
+          area: "Camden",
+          guide: "https://camdenmarket.com/visit-us",
+          booking: "",
+          note: "Market visits are generally walk-in; book separately for tours or experiences."
+        }
+      ],
+      mumbai: [
+        {
+          name: "Gateway of India",
+          area: "Colaba",
+          guide: "https://www.maharashtratourism.gov.in/",
+          booking: "",
+          note: "Check local visitor guidance and boat-trip operators before booking an excursion."
+        },
+        {
+          name: "Marine Drive",
+          area: "South Mumbai",
+          guide: "https://www.maharashtratourism.gov.in/",
+          booking: "",
+          note: "Public waterfront promenade; no promenade ticket is normally needed."
+        },
+        {
+          name: "Sanjay Gandhi National Park",
+          area: "Borivali",
+          guide: "https://sgnp.maharashtra.gov.in/",
+          booking: "https://sgnp.maharashtra.gov.in/",
+          note: "Check park entry, safari, and activity requirements on the official site."
+        },
+        {
+          name: "Bandra Fort",
+          area: "Bandra",
+          guide: "https://www.maharashtratourism.gov.in/",
+          booking: "",
+          note: "Check local access information before visiting."
+        }
+      ],
+      bengaluru: [
+        {
+          name: "Lalbagh Botanical Garden",
+          area: "South Bengaluru",
+          guide: "https://horticulturedir.karnataka.gov.in/",
+          booking: "",
+          note: "Check local garden notices for events and visitor arrangements."
+        },
+        {
+          name: "Bengaluru Palace",
+          area: "Vasanth Nagar",
+          guide: "https://bengalurupalace.com/",
+          booking: "https://bengaluru palace.com/",
+          note: "Check the palace's official visitor page for current tickets and timings."
+        },
+        {
+          name: "Cubbon Park",
+          area: "Central Bengaluru",
+          guide: "https://bengaluruurban.nic.in/en/tourist-place/cubbon-park/",
+          booking: "",
+          note: "Public park; check local notices for closures or special events."
+        },
+        {
+          name: "Nandi Hills",
+          area: "Chikkaballapur",
+          guide: "https://karnatakatourism.org/",
+          booking: "",
+          note: "Check current access, transport, and entry guidance before setting out."
+        }
+      ]
+    };
+
+    const genericPlaces = [
+      "Explore the destination's best-known sights",
+      "Visit a local museum or cultural district",
+      "Discover a neighborhood market and local food",
+      "Spend time at a park, viewpoint, or waterfront",
+      "Choose a nearby day trip or local experience"
+    ];
+
+    function findPlaceGuide(placeName, cityKey) {
+      const list = placeGuides[cityKey] || [];
+      return list.find(place =>
+        placeName.toLowerCase().includes(place.name.toLowerCase()) ||
+        place.name.toLowerCase().includes(placeName.toLowerCase())
+      );
+    }
+
+    function makeSearchUrl(query) {
+      return "https://www.google.com/search?q=" + encodeURIComponent(query);
+    }
+
+    function makeMapUrl(placeName, destination) {
+      return "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(placeName + " " + destination);
+    }
+
+    function makeBookingUrl(mode, from, to) {
+      const query = `${mode} travel from ${from} to ${to} booking`;
+      return makeSearchUrl(query);
+    }
+
+    function renderTransport(from, to, days, preferred) {
+      const options = [
+        {
+          key: "flight",
+          icon: "✈",
+          name: "Flight",
+          detail: "Consider for longer-distance trips. Check airport transfers and baggage rules.",
+          linkText: "Search flights"
+        },
+        {
+          key: "train",
+          icon: "🚆",
+          name: "Train",
+          detail: "A comfortable intercity option where rail service is available.",
+          linkText: "Search trains"
+        },
+        {
+          key: "bus",
+          icon: "🚌",
+          name: "Bus",
+          detail: "Compare intercity coach routes and arrival locations.",
+          linkText: "Search buses"
+        },
+        {
+          key: "car",
+          icon: "🚗",
+          name: "Car or rental",
+          detail: "Offers flexibility for road trips. Check driving rules, parking, and rental terms.",
+          linkText: "Search car options"
+        }
+      ].filter(option => preferred === "any" || option.key === preferred);
+
+      const localOptions = [
+        {
+          icon: "🚇",
+          name: "Local public transport",
+          detail: "Look for metro, city buses, or local rail passes."
+        },
+        {
+          icon: "🚕",
+          name: "Taxi or rideshare",
+          detail: "Check local licensed providers, fares, and pickup rules."
+        },
+        {
+          icon: "🚶",
+          name: "Walk or cycle",
+          detail: "Useful for nearby stops; check route and weather conditions."
+        }
+      ];
+
+      return `
+        <h3 style="margin:20px 0 5px">Getting there</h3>
+        <p class="card-subtitle">${days} day${days === 1 ? "" : "s"} · Compare ways to travel from ${escapeHTML(from)} to ${escapeHTML(to)}.</p>
+        <div class="transport-grid">
+          ${options.map(option => `
+            <article class="transport-card">
+              <span class="transport-icon">${option.icon}</span>
+              <h4>${option.name}</h4>
+              <p>${option.detail}</p>
+              <div class="guide-links">
+                <a href="${makeBookingUrl(option.key, from, to)}" target="_blank" rel="noopener noreferrer">${option.linkText} ↗</a>
+                <a href="https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(to)}&travelmode=${option.key === "car" ? "driving" : "transit"}" target="_blank" rel="noopener noreferrer">View route ↗</a>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+        <h3 style="margin:18px 0 5px">Getting around at your destination</h3>
+        <div class="transport-grid">
+          ${localOptions.map(option => `
+            <article class="transport-card">
+              <span class="transport-icon">${option.icon}</span>
+              <h4>${option.name}</h4>
+              <p>${option.detail}</p>
+              <div class="guide-links">
+                <a href="${makeSearchUrl(option.name + " in " + to)}" target="_blank" rel="noopener noreferrer">Find local options ↗</a>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderPlaceGuide(placeName, destination, cityKey) {
+      const place = findPlaceGuide(placeName, cityKey);
+
+      if (!place) {
+        const officialSearch = makeSearchUrl(placeName + " " + destination + " official visitor guide contact tickets");
+        const map = makeMapUrl(placeName, destination);
+
+        return `
+          <article class="guide-card">
+            <h4>${escapeHTML(placeName)}</h4>
+            <p>Check the venue's official visitor information for contact details, access, and whether advance booking is needed.</p>
+            <span class="booking-note">Booking: check with the venue before visiting.</span>
+            <div class="guide-links">
+              <a href="${officialSearch}" target="_blank" rel="noopener noreferrer">Find visitor guide / contact ↗</a>
+              <a href="${map}" target="_blank" rel="noopener noreferrer">Open map ↗</a>
+            </div>
+          </article>
+        `;
+      }
+
+      const guideUrl = place.guide || makeSearchUrl(place.name + " official visitor guide");
+      const bookingMarkup = place.booking
+        ? `<a href="${place.booking}" target="_blank" rel="noopener noreferrer">Tickets / booking ↗</a>`
+        : "";
+
+      return `
+        <article class="guide-card">
+          <h4>${escapeHTML(place.name)}</h4>
+          <p>${escapeHTML(place.area)} · ${escapeHTML(place.note)}</p>
+          <span class="booking-note">${place.booking ? "Booking: check the official page for current availability." : "Booking: no specific ticket link listed; confirm current requirements."}</span>
+          <div class="guide-links">
+            <a href="${guideUrl}" target="_blank" rel="noopener noreferrer">Official guide / contact ↗</a>
+            ${bookingMarkup}
+            <a href="${makeMapUrl(place.name, destination)}" target="_blank" rel="noopener noreferrer">Map ↗</a>
+          </div>
+        </article>
+      `;
+    }
+
+    document.getElementById("planner-form").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      if (!form.reportValidity()) return;
+
+      const from = document.getElementById("from-place").value.trim();
+      const destination = document.getElementById("to-place").value.trim();
+      const daysCount = Number(document.getElementById("trip-days").value);
+      const style = document.getElementById("travel-style").value;
+      const preferredVehicle = document.getElementById("vehicle").value;
+      const output = document.getElementById("trip-results");
+
+      const cityKey = Object.keys(placeGuides).find(city =>
+        destination.toLowerCase().includes(city)
+      );
+
+      const cityPlaces = (placeGuides[cityKey] || []).map(place => place.name);
+      const attractions = cityPlaces.length ? cityPlaces : genericPlaces;
+
+      const itinerary = Array.from({ length: daysCount }, (_, index) => {
+        const firstPlace = attractions[(index * 2) % attractions.length];
+        const secondPlace = attractions[(index * 2 + 1) % attractions.length];
+
+        const thirdPlace = style === "Relaxed pace"
+          ? "Leave time to rest or explore nearby"
+          : style === "Food and cafes"
+            ? "Try a local restaurant or neighborhood food market"
+            : style === "Nature and outdoors"
+              ? "Add a nearby park, garden, or scenic walk"
+              : "End with a local dinner and evening stroll";
+
+        return {
+          title: `Day ${String(index + 1).padStart(2, "0")}`,
+          places: [firstPlace, secondPlace, thirdPlace]
+        };
+      });
+
+      output.innerHTML =
+        `<div class="itinerary-label">Your route is ready</div>` +
+        `<h2>${escapeHTML(from)} <span style="color:#7ce9f2">→</span> ${escapeHTML(destination)}</h2>` +
+        `<p class="card-subtitle">${daysCount} day${daysCount === 1 ? "" : "s"} · ${escapeHTML(style)} pace</p>` +
+        renderTransport(from, destination, daysCount, preferredVehicle) +
+        itinerary.map(day => `
+          <article class="day-plan">
+            <h3>✦ ${escapeHTML(day.title)}</h3>
+            <ul>${day.places.map(place => `<li>${escapeHTML(place)}</li>`).join("")}</ul>
+            <div class="guide-grid">
+              ${day.places.map(place => renderPlaceGuide(place, destination, cityKey)).join("")}
+            </div>
+          </article>
+        `).join("");
+    });
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]);
+    }
+  </script>
+</body>
+</html>
